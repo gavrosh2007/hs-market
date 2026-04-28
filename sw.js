@@ -1,13 +1,11 @@
-const CACHE_NAME = 'hsmarket-v1';
-const BASE_PATH = '/hs-market/';
-
+const CACHE_NAME = 'hsmarket-v2';
 const urlsToCache = [
-  BASE_PATH,
-  BASE_PATH + 'index.html',
-  BASE_PATH + 'manifest.json',
-  BASE_PATH + 'icon-192x192.png',
-  BASE_PATH + 'icon-512x512.png',
-  BASE_PATH + 'offline.html'
+  '/hs-market/',
+  '/hs-market/index.html',
+  '/hs-market/manifest.json',
+  '/hs-market/icon-192x192.png',
+  '/hs-market/icon-512x512.png',
+  '/hs-market/offline.html'
 ];
 
 self.addEventListener('install', event => {
@@ -23,12 +21,7 @@ self.addEventListener('fetch', event => {
     caches.match(event.request)
       .then(response => {
         if (response) return response;
-        return fetch(event.request).catch(() => {
-          if (event.request.mode === 'navigate') {
-            return caches.match(BASE_PATH + 'offline.html');
-          }
-          return new Response('Offline', { status: 503 });
-        });
+        return fetch(event.request);
       })
   );
 });
