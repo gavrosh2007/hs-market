@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>HS Market — Универсальный маркетплейс</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HS Market">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#e8491d">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            filter: blur(4px);
+            transform: scale(1.02);
+            transition: background-image 0.5s ease;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        header {
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border: 1px solid rgba(232,73,29,0.3);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #e8491d;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        
+        .nav-btn:hover {
+            background: #e8491d;
+        }
+        
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .lang-btn {
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        
+        .lang-btn.active {
+            background: #e8491d;
+        }
+        
+        .install-area {
+            text-align: center;
+            margin: 0.5rem 0 1rem;
+        }
+        
+        .pwa-icon-btn {
+            background: rgba(0,0,0,0.5);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #e8491d;
+            font-weight: bold;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+        
+        .pwa-icon-btn img {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+        
+        .hero {
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 32px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #e8491d;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+        }
+        
+        .hero p {
+            color: #1a1a1a;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #e8491d;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.6);
+            margin: 1.5rem 0 1rem;
+            text-align: center;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .site-card {
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 1.2rem;
+            transition: 0.2s;
+            border-left: 4px solid #e8491d;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .site-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .site-card h3 {
+            color: #c04010;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+        }
+        
+        .site-card p {
+            color: #1a1a1a;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #e8491d;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            margin-top: 0.5rem;
+        }
+        
+        .listing-card {
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 1rem;
+            transition: 0.2s;
+        }
+        
+        .listing-card h4 {
+            color: #c04010;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+        
+        .listing-card p {
+            color: #1a1a1a;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .seller-form {
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .seller-form h3 {
+            color: #e8491d;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+            font-weight: 700;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 12px;
+            border: 1px solid rgba(232,73,29,0.5);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: #aaa;
+        }
+        
+        .submit-btn {
+            background: #e8491d;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 40px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .submit-btn:hover {
+            background: #c04010;
+        }
+        
+        .contacts {
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .contacts h3 {
+            color: #e8491d;
+            margin-bottom: 1rem;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+        }
+        
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+        
+        .contact-links a {
+            background: rgba(255,255,255,0.5);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .contact-links a:hover {
+            background: #e8491d;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .lang-content {
+            display: none;
+        }
+        
+        .lang-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 700px) {
+            .container { padding: 1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .section-title { font-size: 1.4rem; }
+            .nav-btn { font-size: 0.8rem; padding: 0.3rem 0.8rem; }
+            .pwa-icon-btn img { width: 24px; height: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer" id="bgLayer"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo"><h1>HS MARKET</h1></div>
+            <div class="nav-links">
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="ru">RU</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <button class="nav-btn" data-nav="sites" id="navSitesBtn">🏪 Площадки</button>
+                <button class="nav-btn" data-nav="listings" id="navListingsBtn">📢 Объявления</button>
+                <button class="nav-btn" data-nav="seller" id="navSellerBtn">🚀 Продавцам</button>
+                <button class="nav-btn" data-nav="contacts" id="navContactsBtn">📞 Контакты</button>
+            </div>
+        </header>
+
+        <div class="install-area">
+            <button id="pwa-install-icon" class="pwa-icon-btn">
+                <img src="icon-192x192.png" alt="Установить" width="32" height="32">
+                <span id="pwaBtnText">Установить</span>
+            </button>
+        </div>
+
+        <!-- Русская версия -->
+        <div id="ru-content" class="lang-content active">
+            <div class="hero">
+                <h1>HS Market — Универсальный маркетплейс</h1>
+                <p>Продавайте что угодно — недвижимость, автомобили, искусство, услуги. Одна платформа, миллионы покупателей.</p>
+            </div>
+
+            <h2 id="sites" class="section-title">🏪 Наши площадки</h2>
+            <div class="cards-grid" id="sitesGridRu"></div>
+
+            <h2 id="listings" class="section-title">📢 Последние объявления</h2>
+            <div class="cards-grid" id="listingsGridRu"></div>
+
+            <div id="seller" class="seller-form">
+                <h3>🚀 Хотите продавать на HS Market?</h3>
+                <form id="sellerRequestFormRu">
+                    <div class="form-group">
+                        <input type="text" id="sellerNameRu" placeholder="Ваше имя или название компании *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="sellerEmailRu" placeholder="Email *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="sellerPhoneRu" placeholder="Телефон">
+                    </div>
+                    <div class="form-group">
+                        <select id="sellerCategoryRu">
+                            <option value="realty">Недвижимость</option>
+                            <option value="auto">Автомобили</option>
+                            <option value="art">Искусство</option>
+                            <option value="services">Услуги</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="sellerDescRu" rows="3" placeholder="Расскажите о вашем товаре/услуге"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">📩 Отправить заявку</button>
+                </form>
+                <p style="font-size:0.8rem; margin-top:1rem; text-align:center; color:#1a1a1a; font-weight:500;">Мы свяжемся с вами в течение 24 часов</p>
+            </div>
+
+            <div id="contacts" class="contacts">
+                <h3>📞 Контакты</h3>
+                <div class="contact-links">
+                    <a href="tel:+35799453575">📞 +357 99 453575</a>
+                    <a href="tel:+35799486511">📞 +357 99 486511</a>
+                    <a href="https://wa.me/35799453575" target="_blank">💬 WhatsApp</a>
+                    <a href="mailto:gavrosh2007@gmail.com">✉️ Email</a>
+                    <a href="https://t.me/faufautua" target="_blank">📱 Telegram</a>
+                </div>
+            </div>
+            <footer><span>© 2025 HS Market | Универсальный маркетплейс</span></footer>
+        </div>
+
+        <!-- Английская версия -->
+        <div id="en-content" class="lang-content">
+            <div class="hero">
+                <h1>HS Market — Universal Marketplace</h1>
+                <p>Sell anything — real estate, cars, art, services. One platform, millions of buyers.</p>
+            </div>
+
+            <h2 id="sites-en" class="section-title">🏪 Our Platforms</h2>
+            <div class="cards-grid" id="sitesGridEn"></div>
+
+            <h2 id="listings-en" class="section-title">📢 Latest Listings</h2>
+            <div class="cards-grid" id="listingsGridEn"></div>
+
+            <div id="seller-en" class="seller-form">
+                <h3>🚀 Want to sell on HS Market?</h3>
+                <form id="sellerRequestFormEn">
+                    <div class="form-group">
+                        <input type="text" id="sellerNameEn" placeholder="Your name or company name *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="sellerEmailEn" placeholder="Email *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="sellerPhoneEn" placeholder="Phone">
+                    </div>
+                    <div class="form-group">
+                        <select id="sellerCategoryEn">
+                            <option value="realty">Real Estate</option>
+                            <option value="auto">Cars</option>
+                            <option value="art">Art</option>
+                            <option value="services">Services</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="sellerDescEn" rows="3" placeholder="Tell us about your product/service"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">📩 Send request</button>
+                </form>
+                <p style="font-size:0.8rem; margin-top:1rem; text-align:center; color:#1a1a1a; font-weight:500;">We will contact you within 24 hours</p>
+            </div>
+
+            <div id="contacts-en" class="contacts">
+                <h3>📞 Contacts</h3>
+                <div class="contact-links">
+                    <a href="tel:+35799453575">📞 +357 99 453575</a>
+                    <a href="tel:+35799486511">📞 +357 99 486511</a>
+                    <a href="https://wa.me/35799453575" target="_blank">💬 WhatsApp</a>
+                    <a href="mailto:gavrosh2007@gmail.com">✉️ Email</a>
+                    <a href="https://t.me/faufautua" target="_blank">📱 Telegram</a>
+                </div>
+            </div>
+            <footer><span>© 2025 HS Market | Universal Marketplace</span></footer>
+        </div>
+    </div>
+
+    <script>
+        const backgrounds = ['bg1.jpg', 'bg2.jpg', 'bg3.jpg'];
+        const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+        document.getElementById('bgLayer').style.backgroundImage = `url(${randomBg})`;
+        
+        const sites = [
+            { name: "Недвижимость", nameEn: "Real Estate", desc: "Продажа домов, вилл, квартир на Кипре", descEn: "Sale of houses, villas, apartments in Cyprus", url: "https://gavrosh2007.github.io/Real-Estate-PWA/", badge: "HM&RE" },
+            { name: "Автомобили", nameEn: "Cars", desc: "Автомобили с пробегом для бизнеса и частных лиц", descEn: "Used cars for business and individuals", url: "https://gavrosh2007.github.io/Car-sale/", badge: "HM&CS" },
+            { name: "ART-Sale", nameEn: "ART-Sale", desc: "Галерея и книга искусства", descEn: "Art gallery and book", url: "https://gavrosh2007.github.io/ART-Sale/", badge: "HM&SA" },
+            { name: "ART-Price", nameEn: "ART-Price", desc: "Цены на произведения искусства", descEn: "Artwork prices", url: "https://gavrosh2007.github.io/ART-price/", badge: "HM&AP" },
+            { name: "Dual-Token Forest", nameEn: "Dual-Token Forest", desc: "Security + Meme токены для лесов", descEn: "Security + Meme tokens for forests", url: "https://gavrosh2007.github.io/Dual-Token/", badge: "HM&DT" },
+            { name: "Game Theory", nameEn: "Game Theory", desc: "Теория игр — стратегическое мышление", descEn: "Game theory — strategic thinking", url: "https://gavrosh2007.github.io/Game-Theory/", badge: "HM&GT" },
+            { name: "Game Theory Oracle", nameEn: "Game Theory Oracle", desc: "Предсказатель на основе теории игр", descEn: "Game theory based predictor", url: "https://gavrosh2007.github.io/Game-Theory-Oracle/", badge: "HM&GO" },
+            { name: "Hermes Consulting", nameEn: "Hermes Consulting", desc: "Бизнес-консалтинг на Кипре", descEn: "Business consulting in Cyprus", url: "https://gavrosh2007.github.io/Hermes-Management-and-Consulting-App/", badge: "HM&C" }
+        ];
+        
+        const demoListings = [
+            { title: "Вилла в Лимасоле", titleEn: "Villa in Limassol", price: "€750,000", category: "Недвижимость", categoryEn: "Real Estate", site: "Недвижимость", siteEn: "Real Estate" },
+            { title: "Nissan GT-R 2019", titleEn: "Nissan GT-R 2019", price: "€65,000", category: "Автомобили", categoryEn: "Cars", site: "Автомобили", siteEn: "Cars" },
+            { title: "Картина «Весна»", titleEn: "Painting 'Spring'", price: "€2,500", category: "Искусство", categoryEn: "Art", site: "ART-Sale", siteEn: "ART-Sale" },
+            { title: "Консалтинг для стартапов", titleEn: "Consulting for startups", price: "по запросу", category: "Услуги", categoryEn: "Services", site: "Hermes Consulting", siteEn: "Hermes Consulting" },
+            { title: "Прогноз курса биткоина", titleEn: "Bitcoin price forecast", price: "бесплатно", category: "Услуги", categoryEn: "Services", site: "Game Theory Oracle", siteEn: "Game Theory Oracle" }
+        ];
+        
+        function renderSites(lang) {
+            const container = document.getElementById(lang === 'ru' ? 'sitesGridRu' : 'sitesGridEn');
+            if (!container) return;
+            container.innerHTML = sites.map(site => `
+                <a href="${site.url}" target="_blank" class="site-card">
+                    <h3>${lang === 'ru' ? site.name : site.nameEn}</h3>
+                    <p>${lang === 'ru' ? site.desc : site.descEn}</p>
+                    <span class="badge">${site.badge}</span>
+                </a>
+            `).join('');
+        }
+        
+        function renderListings(lang) {
+            const container = document.getElementById(lang === 'ru' ? 'listingsGridRu' : 'listingsGridEn');
+            if (!container) return;
+            container.innerHTML = demoListings.map(listing => `
+                <div class="listing-card">
+                    <h4>${lang === 'ru' ? listing.title : listing.titleEn}</h4>
+                    <p><strong>${listing.price}</strong> | ${lang === 'ru' ? listing.category : listing.categoryEn}</p>
+                    <p style="font-size:0.7rem; margin-top:0.5rem;">📍 ${lang === 'ru' ? 'Площадка' : 'Platform'}: ${lang === 'ru' ? listing.site : listing.siteEn}</p>
+                </div>
+            `).join('');
+        }
+        
+        let currentLang = 'ru';
+        
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('ru-content').classList.toggle('active', lang === 'ru');
+            document.getElementById('en-content').classList.toggle('active', lang === 'en');
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+            
+            const navSites = document.getElementById('navSitesBtn');
+            const navListings = document.getElementById('navListingsBtn');
+            const navSeller = document.getElementById('navSellerBtn');
+            const navContacts = document.getElementById('navContactsBtn');
+            const pwaText = document.getElementById('pwaBtnText');
+            
+            if (lang === 'ru') {
+                navSites.innerHTML = '🏪 Площадки';
+                navListings.innerHTML = '📢 Объявления';
+                navSeller.innerHTML = '🚀 Продавцам';
+                navContacts.innerHTML = '📞 Контакты';
+                pwaText.innerText = 'Установить';
+            } else {
+                navSites.innerHTML = '🏪 Platforms';
+                navListings.innerHTML = '📢 Listings';
+                navSeller.innerHTML = '🚀 For Sellers';
+                navContacts.innerHTML = '📞 Contacts';
+                pwaText.innerText = 'Install';
+            }
+            
+            renderSites(lang);
+            renderListings(lang);
+        }
+        
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+        
+        document.querySelectorAll('[data-nav]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const sectionId = btn.dataset.nav;
+                const element = document.getElementById(sectionId + (currentLang === 'en' ? '-en' : ''));
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        const formRu = document.getElementById('sellerRequestFormRu');
+        if (formRu) {
+            formRu.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('sellerNameRu').value;
+                const email = document.getElementById('sellerEmailRu').value;
+                const phone = document.getElementById('sellerPhoneRu').value;
+                const category = document.getElementById('sellerCategoryRu').options[document.getElementById('sellerCategoryRu').selectedIndex].text;
+                const desc = document.getElementById('sellerDescRu').value;
+                const subject = encodeURIComponent(`Заявка от продавца HS Market: ${name}`);
+                const body = encodeURIComponent(`Имя: ${name}\nEmail: ${email}\nТелефон: ${phone}\nКатегория: ${category}\nОписание:\n${desc}`);
+                window.location.href = `mailto:gavrosh2007@gmail.com?subject=${subject}&body=${body}`;
+                alert('✅ Заявка отправлена! Мы свяжемся с вами.');
+                formRu.reset();
+            });
+        }
+        
+        const formEn = document.getElementById('sellerRequestFormEn');
+        if (formEn) {
+            formEn.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('sellerNameEn').value;
+                const email = document.getElementById('sellerEmailEn').value;
+                const phone = document.getElementById('sellerPhoneEn').value;
+                const category = document.getElementById('sellerCategoryEn').options[document.getElementById('sellerCategoryEn').selectedIndex].text;
+                const desc = document.getElementById('sellerDescEn').value;
+                const subject = encodeURIComponent(`Seller request HS Market: ${name}`);
+                const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nCategory: ${category}\nDescription:\n${desc}`);
+                window.location.href = `mailto:gavrosh2007@gmail.com?subject=${subject}&body=${body}`;
+                alert('✅ Request sent! We will contact you.');
+                formEn.reset();
+            });
+        }
+        
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
+        document.getElementById('pwa-install-icon')?.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                await deferredPrompt.userChoice;
+                deferredPrompt = null;
+            } else {
+                alert('Для установки: Chrome/Edge — значок ⬇️ в адресной строке, iPhone — Поделиться → На экран "Домой"');
+            }
+        });
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(err => console.warn('SW error:', err));
+        }
+        
+        renderSites('ru');
+        renderListings('ru');
+        setLanguage('ru');
+    </script>
+</body>
+</html>

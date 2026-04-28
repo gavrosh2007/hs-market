@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нет соединения</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background: #1a1a1a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 1rem;
+        }
+        .container {
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            padding: 2rem;
+            border-radius: 32px;
+            border: 1px solid #e8491d;
+            max-width: 400px;
+        }
+        h1 { font-size: 2rem; margin-bottom: 1rem; }
+        p { margin-bottom: 1.5rem; color: #ccc; }
+        button {
+            background: #e8491d;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover { background: #c04010; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📡 Нет соединения</h1>
+        <p>Проверьте подключение к интернету и попробуйте снова.</p>
+        <button onclick="location.reload()">⟳ Повторить</button>
+    </div>
+    <script>
+        setInterval(() => { if (navigator.onLine) location.reload(); }, 5000);
+    </script>
+</body>
+</html>
