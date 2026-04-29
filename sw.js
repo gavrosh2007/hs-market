@@ -1,10 +1,10 @@
 const CACHE_NAME = 'hs-market-v1';
 const urlsToCache = [
-  '/hs-market/',
-  '/hs-market/index.html',
-  '/hs-market/manifest.json',
-  '/hs-market/icon-192x192.png',
-  '/hs-market/icon-512x512.png'
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/icon-192x192.png',
+  '/icon-512x512.png'
 ];
 
 self.addEventListener('install', event => {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>HS Market — Универсальный маркетплейс</title>
-    <link rel="manifest" href="/hs-market/manifest.json">
+    <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="HS Market">
@@ -81,7 +81,7 @@
         <div class="install-area">
             <div class="install-tooltip">
                 <button id="pwa-install-icon" class="pwa-icon-btn">
-                    <img src="/hs-market/icon-192x192.png" width="96" height="96" alt="Иконка приложения">
+                    <img src="/icon-192x192.png" width="96" height="96" alt="Иконка приложения">
                     <span id="pwaBtnText">Установить приложение</span>
                 </button>
                 <span class="tooltip-text" id="pwaTooltip">💡 Нажмите — установите как приложение.</span>
@@ -267,7 +267,7 @@
         });
         
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/hs-market/sw.js');
+            navigator.serviceWorker.register('/sw.js');
         }
         
         renderSites('ru');
