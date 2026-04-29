@@ -25,8 +25,14 @@
             border: 1px solid #e8491d;
             max-width: 400px;
         }
-        h1 { font-size: 2rem; margin-bottom: 1rem; }
-        p { margin-bottom: 1.5rem; color: #ccc; }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+        }
         button {
             background: #e8491d;
             border: none;
@@ -35,8 +41,16 @@
             color: white;
             font-size: 1rem;
             cursor: pointer;
+            transition: 0.2s;
         }
-        button:hover { background: #c04010; }
+        button:hover {
+            background: #c04010;
+            transform: scale(1.02);
+        }
+        @media (max-width: 600px) {
+            .container { padding: 1.5rem; }
+            h1 { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -46,7 +60,9 @@
         <button onclick="location.reload()">⟳ Повторить</button>
     </div>
     <script>
-        setInterval(() => { if (navigator.onLine) location.reload(); }, 5000);
+        setInterval(() => {
+            if (navigator.onLine) location.reload();
+        }, 5000);
     </script>
 </body>
 </html>
