@@ -12,13 +12,11 @@
     <meta name="theme-color" content="#e8491d">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             position: relative;
         }
-        
         .bg-layer {
             position: fixed;
             top: 0;
@@ -32,7 +30,6 @@
             transform: scale(1.02);
             transition: background-image 0.5s ease;
         }
-        
         .container {
             position: relative;
             z-index: 1;
@@ -40,7 +37,6 @@
             margin: 0 auto;
             padding: 1.5rem;
         }
-        
         header {
             background: rgba(255,255,255,0.6);
             backdrop-filter: blur(8px);
@@ -54,7 +50,6 @@
             gap: 1rem;
             border: 1px solid rgba(232,73,29,0.3);
         }
-        
         .logo h1 {
             font-size: 1.8rem;
             color: #e8491d;
@@ -62,14 +57,12 @@
             font-weight: bold;
             letter-spacing: 2px;
         }
-        
         .nav-links {
             display: flex;
             gap: 1rem;
             align-items: center;
             flex-wrap: wrap;
         }
-        
         .nav-btn {
             background: rgba(0,0,0,0.5);
             border: none;
@@ -80,16 +73,13 @@
             transition: 0.2s;
             font-size: 1rem;
         }
-        
         .nav-btn:hover {
             background: #e8491d;
         }
-        
         .lang-switch {
             display: flex;
             gap: 0.5rem;
         }
-        
         .lang-btn {
             background: rgba(0,0,0,0.5);
             border: none;
@@ -100,11 +90,9 @@
             font-size: 0.85rem;
             font-weight: bold;
         }
-        
         .lang-btn.active {
             background: #e8491d;
         }
-        
         .install-area {
             text-align: center;
             margin: 1rem 0 2rem;
@@ -154,7 +142,6 @@
             font-size: 0.7rem;
             color: #ccc;
         }
-        
         .hero {
             background: rgba(255,255,255,0.6);
             backdrop-filter: blur(8px);
@@ -163,20 +150,17 @@
             text-align: center;
             margin-bottom: 2rem;
         }
-        
         .hero h1 {
             font-size: 2.5rem;
             color: #e8491d;
             text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
         }
-        
         .hero p {
             color: #1a1a1a;
             font-size: 1.2rem;
             margin-top: 0.5rem;
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
-        
         .section-title {
             font-size: 1.8rem;
             color: #e8491d;
@@ -184,14 +168,12 @@
             margin: 1.5rem 0 1rem;
             text-align: center;
         }
-        
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
             margin: 1.5rem 0;
         }
-        
         .site-card {
             background: rgba(255,255,255,0.6);
             backdrop-filter: blur(8px);
@@ -202,12 +184,10 @@
             text-decoration: none;
             display: block;
         }
-        
         .site-card:hover {
             transform: translateY(-5px);
             background: rgba(255,255,255,0.8);
         }
-        
         .site-card h3 {
             color: #c04010;
             margin-bottom: 0.5rem;
@@ -215,13 +195,11 @@
             font-weight: 700;
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
-        
         .site-card p {
             color: #1a1a1a;
             font-size: 0.9rem;
             font-weight: 500;
         }
-        
         .badge {
             display: inline-block;
             background: #e8491d;
@@ -231,7 +209,6 @@
             border-radius: 30px;
             margin-top: 0.5rem;
         }
-        
         .listing-card {
             background: rgba(255,255,255,0.6);
             backdrop-filter: blur(8px);
@@ -245,24 +222,20 @@
             min-height: 120px;
             justify-content: center;
         }
-        
         .listing-card h4 {
             color: #c04010;
             margin-bottom: 0.3rem;
             font-weight: 700;
         }
-        
         .listing-card p {
             color: #1a1a1a;
             font-size: 0.8rem;
             font-weight: 500;
         }
-        
         .listing-card .placeholder-icon {
             font-size: 3rem;
             margin-bottom: 0.5rem;
         }
-        
         .seller-form {
             background: rgba(255,255,255,0.6);
             backdrop-filter: blur(8px);
@@ -270,7 +243,6 @@
             padding: 1.5rem;
             margin: 2rem 0;
         }
-        
         .seller-form h3 {
             color: #e8491d;
             margin-bottom: 1rem;
@@ -278,11 +250,9 @@
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
             font-weight: 700;
         }
-        
         .form-group {
             margin-bottom: 1rem;
         }
-        
         .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 0.8rem;
@@ -292,11 +262,9 @@
             color: white;
             font-size: 1rem;
         }
-        
         .form-group input::placeholder, .form-group textarea::placeholder {
             color: #aaa;
         }
-        
         .submit-btn {
             background: #e8491d;
             color: white;
@@ -308,11 +276,9 @@
             cursor: pointer;
             font-size: 1rem;
         }
-        
         .submit-btn:hover {
             background: #c04010;
         }
-        
         .contacts {
             background: rgba(255,255,255,0.6);
             backdrop-filter: blur(8px);
@@ -321,20 +287,17 @@
             margin-top: 2rem;
             text-align: center;
         }
-        
         .contacts h3 {
             color: #e8491d;
             margin-bottom: 1rem;
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
-        
         .contact-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 0.8rem;
         }
-        
         .contact-links a {
             background: rgba(255,255,255,0.5);
             padding: 0.4rem 1rem;
@@ -343,12 +306,10 @@
             text-decoration: none;
             font-weight: 600;
         }
-        
         .contact-links a:hover {
             background: #e8491d;
             color: white;
         }
-        
         footer {
             text-align: center;
             margin-top: 2rem;
@@ -356,15 +317,12 @@
             color: #555;
             font-weight: 500;
         }
-        
         .lang-content {
             display: none;
         }
-        
         .lang-content.active {
             display: block;
         }
-        
         @media (max-width: 700px) {
             .container { padding: 1rem; }
             .hero h1 { font-size: 1.8rem; }

@@ -1,21 +1,21 @@
 {
   "name": "HS Market - Universal Marketplace",
   "short_name": "HS Market",
-  "start_url": "/hs-market/index.html",
-  "scope": "/hs-market/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "theme_color": "#e8491d",
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "/hs-market/icon-192x192.png",
+      "src": "/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/hs-market/icon-512x512.png",
+      "src": "/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
