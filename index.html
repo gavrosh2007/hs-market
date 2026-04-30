@@ -97,10 +97,6 @@
             text-align: center;
             margin: 1rem 0 2rem;
         }
-        .install-tooltip {
-            position: relative;
-            display: inline-block;
-        }
         .pwa-icon-btn {
             background: none;
             border: none;
@@ -117,30 +113,6 @@
             width: 96px;
             height: 96px;
             border-radius: 12px;
-        }
-        .tooltip-text {
-            visibility: hidden;
-            background: #333;
-            color: #fff;
-            border-radius: 6px;
-            padding: 5px 10px;
-            position: absolute;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.75rem;
-        }
-        .install-tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-        .install-note {
-            margin-top: 0.5rem;
-            font-size: 0.7rem;
-            color: #ccc;
         }
         .hero {
             background: rgba(255,255,255,0.6);
@@ -351,14 +323,10 @@
         </header>
 
         <div class="install-area">
-            <div class="install-tooltip">
-                <button id="pwa-install-icon" class="pwa-icon-btn">
-                    <img src="icon-192x192.png" width="96" height="96" alt="Иконка приложения">
-                    <span id="pwaBtnText">Установить приложение</span>
-                </button>
-                <span class="tooltip-text" id="pwaTooltip">💡 Нажмите — установите как приложение.</span>
-            </div>
-            <div class="install-note" id="pwaNote">Нажмите на иконку монитора со стрелкой в адресной строке, чтобы установить.</div>
+            <button id="pwa-install-icon" class="pwa-icon-btn">
+                <img src="icon-192x192.png" width="96" height="96" alt="Иконка приложения">
+                <span id="pwaBtnText">Установить приложение</span>
+            </button>
         </div>
 
         <!-- Русская версия -->
@@ -488,7 +456,6 @@
             { name: "Hermes Consulting", nameEn: "Hermes Consulting", desc: "Бизнес-консалтинг на Кипре", descEn: "Business consulting in Cyprus", url: "https://gavrosh2007.github.io/Hermes-Management-and-Consulting-App/", badge: "HM&C" }
         ];
         
-        // Заглушки для объявлений (только эмодзи и текст-заглушка)
         const demoListings = [
             { icon: "🏠", text: "Скоро здесь появятся объявления о недвижимости", textEn: "Real estate listings coming soon" },
             { icon: "🚗", text: "Скоро здесь появятся объявления об автомобилях", textEn: "Car listings coming soon" },
@@ -611,7 +578,7 @@
         });
         
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(err => console.warn('SW error:', err));
+            navigator.serviceWorker.register('sw.js', { scope: '/' }).catch(err => console.warn('SW error:', err));
         }
         
         renderSites('ru');
