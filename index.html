@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>HS Market — Универсальный маркетплейс</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/hs-market/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="HS Market">
@@ -107,7 +107,7 @@
         
         .install-area {
             text-align: center;
-            margin: 0 0 1.5rem 0;
+            margin: 1rem 0 2rem;
         }
         .install-tooltip {
             position: relative;
@@ -117,47 +117,33 @@
             background: none;
             border: none;
             cursor: pointer;
-            padding: 0;
             display: inline-flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
             gap: 0.3rem;
             font-size: 0.9rem;
             font-weight: 600;
-            color: #000000;
+            color: #e8491d;
         }
         .pwa-icon-btn img {
             width: 96px;
             height: 96px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .pwa-icon-btn:hover {
-            transform: scale(1.05);
-        }
-        .pwa-icon-btn:active {
-            transform: scale(0.95);
         }
         .tooltip-text {
             visibility: hidden;
-            background-color: #333;
+            background: #333;
             color: #fff;
-            text-align: center;
             border-radius: 6px;
             padding: 5px 10px;
             position: absolute;
-            z-index: 1;
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
             white-space: nowrap;
             opacity: 0;
             transition: opacity 0.3s;
-            pointer-events: none;
-            font-size: 0.8rem;
-            font-weight: normal;
+            font-size: 0.75rem;
         }
         .install-tooltip:hover .tooltip-text {
             visibility: visible;
@@ -165,24 +151,8 @@
         }
         .install-note {
             margin-top: 0.5rem;
-            color: #000000;
-            font-weight: 600;
-            font-size: 0.75rem;
-            background: rgba(255,255,255,0.3);
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 50px;
-        }
-        @media (max-width: 600px) {
-            .pwa-icon-btn img {
-                width: 64px;
-                height: 64px;
-            }
-            .tooltip-text {
-                white-space: normal;
-                width: 200px;
-                bottom: 130%;
-            }
+            font-size: 0.7rem;
+            color: #ccc;
         }
         
         .hero {
@@ -268,12 +238,6 @@
             border-radius: 20px;
             padding: 1rem;
             transition: 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            min-height: 120px;
-            justify-content: center;
         }
         
         .listing-card h4 {
@@ -286,11 +250,6 @@
             color: #1a1a1a;
             font-size: 0.8rem;
             font-weight: 500;
-        }
-        
-        .listing-card .placeholder-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
         }
         
         .seller-form {
@@ -400,6 +359,7 @@
             .hero h1 { font-size: 1.8rem; }
             .section-title { font-size: 1.4rem; }
             .nav-btn { font-size: 0.8rem; padding: 0.3rem 0.8rem; }
+            .pwa-icon-btn img { width: 64px; height: 64px; }
         }
     </style>
 </head>
@@ -424,12 +384,12 @@
         <div class="install-area">
             <div class="install-tooltip">
                 <button id="pwa-install-icon" class="pwa-icon-btn">
-                    <img src="icon-192x192.png" alt="Установить приложение" width="96" height="96">
-                    <span id="pwaButtonText">Установить</span>
+                    <img src="icon-192x192.png" width="96" height="96" alt="Иконка приложения">
+                    <span id="pwaBtnText">Установить приложение</span>
                 </button>
                 <span class="tooltip-text" id="pwaTooltip">💡 Нажмите — установите как приложение.</span>
             </div>
-            <div class="install-note" id="installNote">✅ Нажмите на иконку монитора со стрелкой в адресной строке, чтобы установить приложение. На iPhone: Поделиться → На экран «Домой».</div>
+            <div class="install-note" id="pwaNote">Нажмите на иконку монитора со стрелкой в адресной строке, чтобы установить.</div>
         </div>
 
         <!-- Русская версия -->
@@ -559,13 +519,12 @@
             { name: "Hermes Consulting", nameEn: "Hermes Consulting", desc: "Бизнес-консалтинг на Кипре", descEn: "Business consulting in Cyprus", url: "https://gavrosh2007.github.io/Hermes-Management-and-Consulting-App/", badge: "HM&C" }
         ];
         
-        // Заглушки для объявлений (только эмодзи и текст-заглушка)
         const demoListings = [
-            { icon: "🏠", text: "Скоро здесь появятся объявления о недвижимости", textEn: "Real estate listings coming soon" },
-            { icon: "🚗", text: "Скоро здесь появятся объявления об автомобилях", textEn: "Car listings coming soon" },
-            { icon: "🎨", text: "Скоро здесь появятся объявления об искусстве", textEn: "Art listings coming soon" },
-            { icon: "💼", text: "Скоро здесь появятся объявления об услугах", textEn: "Services listings coming soon" },
-            { icon: "📦", text: "Другие категории товаров появятся позже", textEn: "Other categories coming later" }
+            { title: "Вилла в Лимасоле", titleEn: "Villa in Limassol", price: "€750,000", category: "Недвижимость", categoryEn: "Real Estate", site: "Недвижимость", siteEn: "Real Estate" },
+            { title: "Nissan GT-R 2019", titleEn: "Nissan GT-R 2019", price: "€65,000", category: "Автомобили", categoryEn: "Cars", site: "Автомобили", siteEn: "Cars" },
+            { title: "Картина «Весна»", titleEn: "Painting 'Spring'", price: "€2,500", category: "Искусство", categoryEn: "Art", site: "ART-Sale", siteEn: "ART-Sale" },
+            { title: "Консалтинг для стартапов", titleEn: "Consulting for startups", price: "по запросу", category: "Услуги", categoryEn: "Services", site: "Hermes Consulting", siteEn: "Hermes Consulting" },
+            { title: "Прогноз курса биткоина", titleEn: "Bitcoin price forecast", price: "бесплатно", category: "Услуги", categoryEn: "Services", site: "Game Theory Oracle", siteEn: "Game Theory Oracle" }
         ];
         
         function renderSites(lang) {
@@ -585,8 +544,9 @@
             if (!container) return;
             container.innerHTML = demoListings.map(listing => `
                 <div class="listing-card">
-                    <div class="placeholder-icon">${listing.icon}</div>
-                    <p>${lang === 'ru' ? listing.text : listing.textEn}</p>
+                    <h4>${lang === 'ru' ? listing.title : listing.titleEn}</h4>
+                    <p><strong>${listing.price}</strong> | ${lang === 'ru' ? listing.category : listing.categoryEn}</p>
+                    <p style="font-size:0.7rem; margin-top:0.5rem;">📍 ${lang === 'ru' ? 'Площадка' : 'Platform'}: ${lang === 'ru' ? listing.site : listing.siteEn}</p>
                 </div>
             `).join('');
         }
@@ -603,20 +563,20 @@
             const navListings = document.getElementById('navListingsBtn');
             const navSeller = document.getElementById('navSellerBtn');
             const navContacts = document.getElementById('navContactsBtn');
-            const pwaText = document.getElementById('pwaButtonText');
+            const pwaText = document.getElementById('pwaBtnText');
             
             if (lang === 'ru') {
                 navSites.innerHTML = '🏪 Площадки';
                 navListings.innerHTML = '📢 Объявления';
                 navSeller.innerHTML = '🚀 Продавцам';
                 navContacts.innerHTML = '📞 Контакты';
-                if (pwaText) pwaText.innerText = 'Установить';
+                pwaText.innerText = 'Установить приложение';
             } else {
                 navSites.innerHTML = '🏪 Platforms';
                 navListings.innerHTML = '📢 Listings';
                 navSeller.innerHTML = '🚀 For Sellers';
                 navContacts.innerHTML = '📞 Contacts';
-                if (pwaText) pwaText.innerText = 'Install';
+                pwaText.innerText = 'Install app';
             }
             
             renderSites(lang);
@@ -671,30 +631,18 @@
         
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
-        
-        const pwaButton = document.getElementById('pwa-install-icon');
-        if (pwaButton) {
-            pwaButton.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    await deferredPrompt.userChoice;
-                    deferredPrompt = null;
-                } else {
-                    const lang = document.querySelector('.lang-btn.active')?.dataset.lang || 'ru';
-                    const msg = lang === 'ru' 
-                        ? 'Для установки: Chrome/Edge — значок ⬇️ в адресной строке, iPhone — Поделиться → На экран "Домой"'
-                        : 'To install: Chrome/Edge — ⬇️ icon in address bar, iPhone — Share → Add to Home Screen';
-                    alert(msg);
-                }
-            });
-        }
+        document.getElementById('pwa-install-icon')?.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                await deferredPrompt.userChoice;
+                deferredPrompt = null;
+            } else {
+                alert('Для установки: Chrome/Edge — значок ⬇️ в адресной строке, iPhone — Поделиться → На экран "Домой"');
+            }
+        });
         
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js', { scope: './' })
-                    .then(reg => console.log('✅ SW registered:', reg.scope))
-                    .catch(err => console.warn('SW error:', err));
-            });
+            navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(err => console.warn('SW error:', err));
         }
         
         renderSites('ru');
