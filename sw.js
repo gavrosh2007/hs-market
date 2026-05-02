@@ -1,17 +1,11 @@
-const base = (() => {
-  const path = self.location.pathname.split('/');
-  path.pop();
-  return path.join('/') + '/';
-})();
-
-const CACHE_NAME = 'hs-market-v4';
+const CACHE_NAME = 'hs-market-v5';
 const urlsToCache = [
-  base,
-  base + 'index.html',
-  base + 'offline.html',
-  base + 'manifest.json',
-  base + 'icon-192x192.png',
-  base + 'icon-512x512.png'
+  './',
+  './index.html',
+  './offline.html',
+  './manifest.json',
+  './icon-192x192.png',
+  './icon-512x512.png'
 ];
 
 self.addEventListener('install', event => {
@@ -37,7 +31,7 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(event.request).catch(() => {
         return caches.match(event.request).then(response => {
-          return response || caches.match(base + 'offline.html');
+          return response || caches.match('./offline.html');
         });
       })
     );
