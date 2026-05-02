@@ -1,11 +1,11 @@
 const CACHE_NAME = 'hs-market-v6';
 const urlsToCache = [
-  './',
-  './index.html',
-  './offline.html',
-  './manifest.json',
-  './icon-192x192.png',
-  './icon-512x512.png'
+  '/',
+  '/index.html',
+  '/offline.html',
+  '/manifest.json',
+  '/icon-192x192.png',
+  '/icon-512x512.png'
 ];
 
 self.addEventListener('install', event => {
@@ -27,19 +27,9 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
-      fetch(event.request).catch(() => {
-        return caches.match(event.request).then(response => {
-          return response || caches.match('./offline.html');
-        });
-      })
-    );
-  } else {
-    event.respondWith(
-      caches.match(event.request).then(response => {
-        return response || fetch(event.request);
-      })
-    );
-  }
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
+  );
 });
