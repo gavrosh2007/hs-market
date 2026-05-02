@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hs-market-v5';
+const CACHE_NAME = 'hs-market-v6';
 const urlsToCache = [
   './',
   './index.html',
