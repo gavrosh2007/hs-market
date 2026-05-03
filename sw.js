@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hs-market-v8';
+const CACHE_NAME = 'hs-market-v9';
 const urlsToCache = [
   '/index.html',
   '/offline.html',
@@ -9,7 +9,16 @@ const urlsToCache = [
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then(async cache => {
+      for (const url of urlsToCache) {
+        const response = await fetch(url);
+        if (response.ok) {
+          await cache.put(url, response);
+        } else {
+          console.error('Failed to cache:', url, response.status);
+        }
+      }
+    })
   );
   self.skipWaiting();
 });
@@ -26,14 +35,6 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-  
-  // НЕ кэшируем картинки и медиафайлы
-  if (url.pathname.match(/\.(jpg|jpeg|png|gif|webp|mp4|mp3|woff2?)$/i)) {
-    event.respondWith(fetch(event.request));
-    return;
-  }
-  
   event.respondWith(
     caches.match(event.request).then(response => {
       return response || fetch(event.request);
