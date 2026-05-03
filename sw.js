@@ -6,6 +6,7 @@ const base = (() => {
 
 const CACHE_NAME = 'hs-market-v6';
 const urlsToCache = [
+  base,
   base + 'index.html',
   base + 'offline.html',
   base + 'manifest.json',
