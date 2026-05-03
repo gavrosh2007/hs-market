@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hs-market-v6';
+const CACHE_NAME = 'hs-market-v7';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -27,6 +27,14 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  
+  // НЕ кэшируем картинки и медиафайлы
+  if (url.pathname.match(/\.(jpg|jpeg|png|gif|webp|mp4|mp3|woff2?)$/i)) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+  
   event.respondWith(
     caches.match(event.request).then(response => {
       return response || fetch(event.request);
