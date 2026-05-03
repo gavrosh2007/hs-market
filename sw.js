@@ -1,24 +1,16 @@
-const CACHE_NAME = 'hs-market-v9';
+const CACHE_NAME = 'hs-market-v4';
 const urlsToCache = [
-  '/index.html',
-  '/offline.html',
-  '/manifest.json',
-  '/icon-192x192.png',
-  '/icon-512x512.png'
+  './',
+  './index.html',
+  './offline.html',
+  './manifest.json',
+  './icon-192x192.png',
+  './icon-512x512.png'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(async cache => {
-      for (const url of urlsToCache) {
-        const response = await fetch(url);
-        if (response.ok) {
-          await cache.put(url, response);
-        } else {
-          console.error('Failed to cache:', url, response.status);
-        }
-      }
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
   self.skipWaiting();
 });
