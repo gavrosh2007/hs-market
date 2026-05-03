@@ -604,7 +604,11 @@
         });
         
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js', { scope: '/' }).catch(err => console.warn('SW error:', err));
+            navigator.serviceWorker.register('sw.js', { scope: '/' }).then(reg => {
+                if (reg.active) return;
+                if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+                navigator.serviceWorker.ready.then(() => console.log('SW ready'));
+            }).catch(err => console.warn('SW error:', err));
         }
         
         renderSites('ru');
