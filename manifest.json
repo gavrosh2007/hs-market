@@ -1,8 +1,8 @@
 {
   "name": "HS Market - Universal Marketplace",
   "short_name": "HS Market",
-  "start_url": ".",
-  "scope": ".",
+  "start_url": "/?utm=pwa",
+  "scope": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "theme_color": "#e8491d",

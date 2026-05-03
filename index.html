@@ -137,11 +137,6 @@
             visibility: visible;
             opacity: 1;
         }
-        .install-note {
-            margin-top: 0.5rem;
-            font-size: 0.7rem;
-            color: #ccc;
-        }
         .hero {
             background: rgba(255,255,255,0.6);
             backdrop-filter: blur(8px);
@@ -358,7 +353,6 @@
                 </button>
                 <span class="tooltip-text" id="pwaTooltip">💡 Нажмите — установите как приложение.</span>
             </div>
-            <div class="install-note" id="pwaNote">Нажмите на иконку монитора со стрелкой в адресной строке, чтобы установить.</div>
         </div>
 
         <!-- Русская версия -->
@@ -609,9 +603,8 @@
             }
         });
         
-        // ===== ИСПРАВЛЕНА ТОЛЬКО ЭТА СТРОЧКА (ИСХОДНЫЙ РАБОЧИЙ ВАРИАНТ) =====
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW error:', err));
+            navigator.serviceWorker.register('sw.js', { scope: '/' }).catch(err => console.warn('SW error:', err));
         }
         
         renderSites('ru');
