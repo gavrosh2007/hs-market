@@ -137,6 +137,16 @@
             visibility: visible;
             opacity: 1;
         }
+        .install-note {
+            margin-top: 0.5rem;
+            color: #000000;
+            font-weight: 600;
+            font-size: 0.75rem;
+            background: rgba(255,255,255,0.3);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+        }
         .hero {
             background: rgba(255,255,255,0.6);
             backdrop-filter: blur(8px);
@@ -308,9 +318,22 @@
         footer {
             text-align: center;
             margin-top: 2rem;
-            font-size: 0.7rem;
-            color: #555;
-            font-weight: 500;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+            font-size: 0.85rem;
+        }
+        footer p {
+            margin: 0.3rem 0;
+        }
+        footer a {
+            color: #e8491d;
+            text-decoration: none;
+            margin: 0 0.3rem;
+        }
+        footer a:hover {
+            text-decoration: underline;
         }
         .lang-content {
             display: none;
@@ -351,8 +374,9 @@
                     <img src="icon-192x192.png" width="96" height="96" alt="Иконка приложения">
                     <span id="pwaBtnText">Установить приложение</span>
                 </button>
-                <span class="tooltip-text" id="pwaTooltip">💡 Нажмите — установите как приложение.</span>
+                <span class="tooltip-text" id="pwaTooltip">💡 Нажмите — установите как приложение.<br>• Chrome/Edge: появится диалог.<br>• iPhone: Поделиться → На экран «Домой».</span>
             </div>
+            <div class="install-note" id="installNote">✅ Нажмите на иконку монитора со стрелкой в адресной строке, чтобы установить приложение. На iPhone: Поделиться → На экран «Домой».</div>
         </div>
 
         <!-- Русская версия -->
@@ -407,7 +431,6 @@
                     <a href="https://t.me/faufautua" target="_blank">📱 Telegram</a>
                 </div>
             </div>
-            <footer><span>© 2025 HS Market | Универсальный маркетплейс</span></footer>
         </div>
 
         <!-- Английская версия -->
@@ -462,8 +485,31 @@
                     <a href="https://t.me/faufautua" target="_blank">📱 Telegram</a>
                 </div>
             </div>
-            <footer><span>© 2025 HS Market | Universal Marketplace</span></footer>
         </div>
+
+        <!-- Универсальный подвал -->
+        <footer>
+            <div id="footer-ru" style="display: block;">
+                <p>© 2025 HS Market | Универсальный маркетплейс</p>
+                <p>
+                    <a href="privacy.html">Политика конфиденциальности</a> |
+                    <a href="terms.html">Условия использования</a> |
+                    <a href="robots.txt" target="_blank">robots.txt</a> |
+                    <a href="sitemap.xml" target="_blank">sitemap.xml</a> |
+                    <a href="humans.txt" target="_blank">humans.txt</a>
+                </p>
+            </div>
+            <div id="footer-en" style="display: none;">
+                <p>© 2025 HS Market | Universal Marketplace</p>
+                <p>
+                    <a href="privacy.html">Privacy Policy</a> |
+                    <a href="terms.html">Terms of Use</a> |
+                    <a href="robots.txt" target="_blank">robots.txt</a> |
+                    <a href="sitemap.xml" target="_blank">sitemap.xml</a> |
+                    <a href="humans.txt" target="_blank">humans.txt</a>
+                </p>
+            </div>
+        </footer>
     </div>
 
     <script>
@@ -515,6 +561,21 @@
         
         let currentLang = 'ru';
         
+        function updatePWATexts(lang) {
+            const btnText = document.getElementById('pwaBtnText');
+            const tooltip = document.getElementById('pwaTooltip');
+            const installNote = document.getElementById('installNote');
+            if (lang === 'ru') {
+                if (btnText) btnText.textContent = 'Установить приложение';
+                if (tooltip) tooltip.innerHTML = '💡 Нажмите — установите как приложение.<br>• Chrome/Edge: появится диалог.<br>• iPhone: Поделиться → На экран «Домой».';
+                if (installNote) installNote.textContent = '✅ Нажмите на иконку монитора со стрелкой в адресной строке, чтобы установить приложение. На iPhone: Поделиться → На экран «Домой».';
+            } else {
+                if (btnText) btnText.textContent = 'Install app';
+                if (tooltip) tooltip.innerHTML = '💡 Click — install as app.<br>• Chrome/Edge: dialog appears.<br>• iPhone: Share → Add to Home Screen.';
+                if (installNote) installNote.textContent = '✅ Click the monitor icon with a down arrow in the address bar to install the app. On iPhone: Share → Add to Home Screen.';
+            }
+        }
+        
         function setLanguage(lang) {
             currentLang = lang;
             document.getElementById('ru-content').classList.toggle('active', lang === 'ru');
@@ -525,24 +586,26 @@
             const navListings = document.getElementById('navListingsBtn');
             const navSeller = document.getElementById('navSellerBtn');
             const navContacts = document.getElementById('navContactsBtn');
-            const pwaText = document.getElementById('pwaBtnText');
             
             if (lang === 'ru') {
                 navSites.innerHTML = '🏪 Площадки';
                 navListings.innerHTML = '📢 Объявления';
                 navSeller.innerHTML = '🚀 Продавцам';
                 navContacts.innerHTML = '📞 Контакты';
-                pwaText.innerText = 'Установить приложение';
             } else {
                 navSites.innerHTML = '🏪 Platforms';
                 navListings.innerHTML = '📢 Listings';
                 navSeller.innerHTML = '🚀 For Sellers';
                 navContacts.innerHTML = '📞 Contacts';
-                pwaText.innerText = 'Install app';
             }
             
+            updatePWATexts(lang);
             renderSites(lang);
             renderListings(lang);
+            
+            // Переключение подвала
+            document.getElementById('footer-ru').style.display = (lang === 'ru') ? 'block' : 'none';
+            document.getElementById('footer-en').style.display = (lang === 'en') ? 'block' : 'none';
         }
         
         document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -599,7 +662,9 @@
                 await deferredPrompt.userChoice;
                 deferredPrompt = null;
             } else {
-                alert('Для установки: Chrome/Edge — значок ⬇️ в адресной строке, iPhone — Поделиться → На экран "Домой"');
+                alert(currentLang === 'ru' 
+                    ? 'Для установки: Chrome/Edge — значок ⬇️ в адресной строке, iPhone — Поделиться → На экран "Домой"'
+                    : 'To install: Chrome/Edge — ⬇️ icon in address bar, iPhone — Share → Add to Home Screen');
             }
         });
         
